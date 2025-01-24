@@ -1,57 +1,64 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
-	[SerializeField] private GameObject projectilePrefab; // הפריפאב של הקליע
-	[SerializeField] private Transform firePoint; // נקודת הירי
-	[SerializeField] private float minShootForce = 5f; // כוח ירי מינימלי
-	[SerializeField] private float maxShootForce = 20f; // כוח ירי מקסימלי
-	[SerializeField] private float chargeTime = 2f; // זמן הטעינה המקסימלי
+    [Header("References")]
+    [SerializeField] private WeaponManager weaponManager; // רפרנס למנהל הנשקים
+    [SerializeField] private Transform firePoint; // נקודת הירי
+    [SerializeField] private float minShootForce = 5f; // כוח ירי מינימלי
+    [SerializeField] private float maxShootForce = 20f; // כוח ירי מקסימלי
+    [SerializeField] private float chargeTime = 2f; // זמן טעינה מקסימלי
 
-	private float currentChargeTime = 4f; // זמן הטעינה הנוכחי
-	private bool isCharging = false; // מצב האם השחקן טוען
+    private float currentChargeTime = 0f; // זמן הטעינה הנוכחי
+    private bool isCharging = false; // האם השחקן טוען
 
-	void Update()
-	{
-		// התחלת טעינה
-		if (Input.GetKeyDown(KeyCode.Space)) // מחזיקים את מקש ה-Space
-		{
-			isCharging = true;
-			currentChargeTime = 0f;
-		}
+    void Update()
+    {
+        // טעינת נשק
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isCharging = true;
+            currentChargeTime = 0f;
+        }
 
-		// טעינה
-		if (isCharging)
-		{
-			currentChargeTime += Time.deltaTime;
-			currentChargeTime = Mathf.Clamp(currentChargeTime, 0f, chargeTime);
-		}
+        // החלפת נשק
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            weaponManager.SwitchWeapon(1);
+        }
 
-		// שחרור הירי
-		if (Input.GetKeyUp(KeyCode.Space))
-		{
-			isCharging = false;
-			Shoot();
-		}
-	}
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            weaponManager.SwitchWeapon(-1);
+        }
 
-	private void Shoot()
-	{
-		//// חישוב כוח הירי בהתאם לזמן הטעינה
-		//float shootForce = Mathf.Lerp(minShootForce, maxShootForce, currentChargeTime / chargeTime);
+        // טעינה
+        if (isCharging)
+        {
+            currentChargeTime += Time.deltaTime;
+            currentChargeTime = Mathf.Clamp(currentChargeTime, 0f, chargeTime);
+        }
 
-		// יצירת הקליע
-		GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        // שחרור הירי
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isCharging = false;
+            Shoot();
+        }
+    }
 
-		// הפעלת הפיזיקה של הקליע
-		//Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-		//if (rb != null)
-		//{
-		//	rb.AddForce(firePoint.up * shootForce, ForceMode2D.Impulse);
-		//}
-
-		// אפקטים נוספים (למשל, סאונד או חלקיקים) אפשר להוסיף כאן
-	}
+    private void Shoot()
+    {
+        GameObject currentWeaponPrefab = weaponManager.GetCurrentWeapon();
+        if (currentWeaponPrefab != null)
+        {
+            // יצירת קליע
+            GameObject projectile = Instantiate(currentWeaponPrefab, firePoint.position, firePoint.rotation);
+            Debug.Log($"Fired weapon: {currentWeaponPrefab.name}");
+        }
+        else
+        {
+            Debug.LogWarning("No weapon selected!");
+        }
+    }
 }

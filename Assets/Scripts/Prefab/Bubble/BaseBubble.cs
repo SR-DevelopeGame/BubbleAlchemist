@@ -8,6 +8,11 @@ public class BaseBubble : MonoBehaviour
 	[SerializeField] private float lifetime = 3f; // זמן חיים של הבועה לפני היעלמות
 	[SerializeField] private int damage = 5;
 
+	[SerializeField] private float initialForce = 10f; // הכוח הראשוני של הירייה
+	[SerializeField] private Vector2 launchDirection = new Vector2(1, 1); // כיוון הירייה (1,1 = ימינה ולמעלה)
+
+
+
 	private Rigidbody2D rb; // רכיב הפיזיקה
 	private BubbleType bubbleType; // סוג הבועה (enum)
 
@@ -35,15 +40,22 @@ public class BaseBubble : MonoBehaviour
 		}
 	}
 
+	private void Update()
+	{
+		Movement(BubbleType.AddForce);
+
+
+	}
 	private void MoveAddForce()
 	{
-		rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
-		StartCoroutine(DestroyAfterTime());
+		rb.AddForce(transform.up * initialForce * Time.deltaTime, ForceMode2D.Impulse);
+		//transform.Rotate(0, 0, -2 * Time.deltaTime);
+
 	}
 
 	private void MoveStraight()
 	{
-		rb.velocity = transform.up * speed; // תנועה בקו ישר
+		rb.velocity = transform.up * speed * Time.deltaTime; // תנועה בקו ישר
 		StartCoroutine(DestroyAfterTime());
 	}
 

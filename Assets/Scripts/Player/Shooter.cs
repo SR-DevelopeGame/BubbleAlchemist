@@ -39,18 +39,18 @@ public class Shooter : MonoBehaviour
 
 	private void Shoot()
 	{
-		// חישוב כוח הירי בהתאם לזמן הטעינה
-		float shootForce = Mathf.Lerp(minShootForce, maxShootForce, currentChargeTime / chargeTime);
+		//// חישוב כוח הירי בהתאם לזמן הטעינה
+		//float shootForce = Mathf.Lerp(minShootForce, maxShootForce, currentChargeTime / chargeTime);
 
 		// יצירת הקליע
 		GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
 
 		// הפעלת הפיזיקה של הקליע
-		Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-		if (rb != null)
-		{
-			rb.AddForce(firePoint.up * shootForce, ForceMode2D.Impulse);
-		}
+		//Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+		//if (rb != null)
+		//{
+		//	rb.AddForce(firePoint.up * shootForce, ForceMode2D.Impulse);
+		//}
 
 		// אפקטים נוספים (למשל, סאונד או חלקיקים) אפשר להוסיף כאן
 	}

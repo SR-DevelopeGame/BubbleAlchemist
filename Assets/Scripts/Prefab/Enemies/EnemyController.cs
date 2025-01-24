@@ -98,4 +98,20 @@ public class EnemyController : MonoBehaviour
 			rb.velocity = direction * projectileSpeed;
 		}
 	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		// בדוק אם ההתנגשות היא עם השחקן
+		if (collision.gameObject.CompareTag("Wall"))
+		{
+			if(movingRight)
+			{
+				movingRight = false;
+			}
+			else
+			{
+				movingRight = true;
+			}
+		}
+	}
 }

@@ -1,48 +1,53 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BubbleManager : MonoBehaviour
 {
-    [SerializeField] private GameObject bubbleWeaponPrefab; // τψιτΰα ωμ πωχ δαεςεϊ
-    [SerializeField] private int maxBubbles = 10; // ξρτψ δαεςεϊ δξχριξμι
+	[SerializeField] private List<BubbleWeaponData> bubbleWeaponDataList; // Χ¨Χ©Χ™ΧΧª Χ΅Χ•Χ’Χ™ Χ”Χ‘Χ•ΧΆΧ•Χª Χ•Χ”Χ Χ©Χ§Χ™Χ Χ”ΧΧªΧΧ™ΧΧ™Χ
+	private Dictionary<string, int> bubbleCounts = new Dictionary<string, int>(); // Χ›ΧΧ•Χª Χ‘Χ•ΧΆΧ•Χª Χ©Χ ΧΧ΅Χ¤Χ• ΧΧ¤Χ™ Χ΅Χ•Χ’
 
-    private int currentBubbleCount = 0; // ξρτψ δαεςεϊ ωπΰρτε
+	private void Start()
+	{
+		// ΧΧªΧ—Χ•Χ Χ›ΧΧ•Χª Χ”Χ‘Χ•ΧΆΧ•Χª Χ©Χ ΧΧ΅Χ¤Χ• ΧΧ›Χ Χ΅Χ•Χ’
+		foreach (var data in bubbleWeaponDataList)
+		{
+			bubbleCounts[data.bubbleType] = 0;
+		}
+	}
 
-    private void OnEnable()
-    {
-        BubbleItem.OnBubbleCollected += HandleBubbleCollected;
-    }
+	public void CollectBubble(GameObject player, string bubbleType)
+	{
+		if (!bubbleCounts.ContainsKey(bubbleType))
+		{
+			Debug.LogWarning($"Bubble type {bubbleType} is not defined!");
+			return;
+		}
 
-    private void OnDisable()
-    {
-        BubbleItem.OnBubbleCollected -= HandleBubbleCollected;
-    }
+		// ΧΆΧ“Χ›Χ•Χ Χ›ΧΧ•Χª Χ”Χ‘Χ•ΧΆΧ•Χª Χ©Χ ΧΧ΅Χ¤Χ•
+		bubbleCounts[bubbleType]++;
+		Debug.Log($"Collected {bubbleType} bubble. Count: {bubbleCounts[bubbleType]}");
 
-    private void HandleBubbleCollected(GameObject player, string bubbleType)
-    {
-        currentBubbleCount++;
+		// Χ‘Χ“Χ™Χ§Χ” ΧΧ Χ”Χ’Χ™ΧΆ Χ”Χ–ΧΧ ΧΧ™Χ¦Χ•Χ¨ Χ Χ©Χ§
+		BubbleWeaponData bubbleWeaponData = bubbleWeaponDataList.Find(data => data.bubbleType == bubbleType);
+		if (bubbleWeaponData != null && bubbleCounts[bubbleType] >= bubbleWeaponData.bubblesRequired)
+		{
+			AddBubbleWeapon(player, bubbleWeaponData.weaponPrefab);
+			bubbleCounts[bubbleType] = 0; // ΧΧ™Χ¤Χ•Χ΅ Χ”Χ›ΧΧ•Χª
+		}
+	}
 
-        Debug.Log($"Bubble collected: {currentBubbleCount}/{maxBubbles}");
+	private void AddBubbleWeapon(GameObject player, GameObject weaponPrefab)
+	{
+		WeaponManager weaponManager = player.GetComponent<WeaponManager>();
 
-        if (currentBubbleCount >= maxBubbles)
-        {
-            AddBubbleWeapon(player);
-            currentBubbleCount = 0; // ΰιτερ ξεπδ δαεςεϊ
-        }
-    }
-
-    private void AddBubbleWeapon(GameObject player)
-    {
-        // ηιτεω WeaponManager ςμ δωηχο
-        WeaponManager weaponManager = player.GetComponent<WeaponManager>();
-
-        if (weaponManager != null && bubbleWeaponPrefab != null)
-        {
-            weaponManager.AddWeapon(bubbleWeaponPrefab); // δερτϊ πωχ ηγω
-            Debug.Log("Bubble weapon added!");
-        }
-        else
-        {
-            Debug.LogWarning("Bubble weapon prefab is missing or player does not have a WeaponManager component!");
-        }
-    }
+		if (weaponManager != null && weaponPrefab != null)
+		{
+			weaponManager.AddWeapon(weaponPrefab);
+			Debug.Log($"Weapon of type {weaponPrefab.name} added to player!");
+		}
+		else
+		{
+			Debug.LogWarning("WeaponManager is missing or weapon prefab is null!");
+		}
+	}
 }

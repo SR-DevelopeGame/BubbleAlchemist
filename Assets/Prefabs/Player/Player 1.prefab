@@ -46,6 +46,10 @@ GameObject:
   - component: {fileID: 5487505561952499943}
   - component: {fileID: 1201790599402044469}
   - component: {fileID: 4313641508683930116}
+  - component: {fileID: 331960535702109548}
+  - component: {fileID: 7150887456826775168}
+  - component: {fileID: -2051686530029496128}
+  - component: {fileID: -3477283707181782514}
   m_Layer: 7
   m_Name: Player 1
   m_TagString: Player
@@ -111,7 +115,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a99d52ba71d38a04eb1866a53e9a1520, type: 3}
   m_Color: {r: 0.38468468, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -199,7 +203,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.0433333, y: 1.6833333}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -220,10 +224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63889e6583d71cc428a861f8f163b067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponManager: {fileID: 0}
+  weaponManager: {fileID: 331960535702109548}
   firePoint: {fileID: 663002685972718134}
-  minShootForce: 5
-  maxShootForce: 5
   chargeTime: 2
 --- !u!114 &4313641508683930116
 MonoBehaviour:
@@ -239,6 +241,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthBar: {fileID: 0}
+--- !u!114 &331960535702109548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6765249254312030380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cd64534dc17d024fbcceeeba691d242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponPrefabs: []
+--- !u!114 &7150887456826775168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6765249254312030380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff1d5b8ce2049046ae31179fdad004c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubbleWeaponDataList:
+  - bubbleType: Soap
+    weaponPrefab: {fileID: 5046729342296366727, guid: 63474765acf73dd469054465df8a9d8a, type: 3}
+    bubblesRequired: 2
+    canTeleportOnSecondShot: 0
+--- !u!114 &-2051686530029496128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6765249254312030380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b152c1ba1cac0244cb821ef640f0adaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPosition: {fileID: 4199915222108653752, guid: 1d9e9943816612e48a037f421d53d709, type: 3}
+--- !u!114 &-3477283707181782514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6765249254312030380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a48dd2e96b79115499cbcf1dac09080b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8073230244897854619
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class CollideBubble : MonoBehaviour
 	// הפונקציה מתבצעת כאשר יש התנגשות עם אובייקט אחר
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		// בדוק אם ההתנגשות היא עם השחקן
+		//// בדוק אם ההתנגשות היא עם השחקן
 		if (collision.gameObject.CompareTag("Player"))
 		{
 			// קבל את הסקריפט של החיים מהשחקן
@@ -22,7 +22,6 @@ public class CollideBubble : MonoBehaviour
 			}
 		}
 
-		// השמד את הירייה לאחר ההתנגשות
 		if (gameObject != null)
 		{
 			Destroy(gameObject);

@@ -1,39 +1,40 @@
+
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    [Header("Weapon Settings")]
-    [SerializeField] private List<GameObject> weaponPrefabs; // øùéîú ğù÷éí æîéğéí
-    private int currentWeaponIndex = 0; // àéğã÷ñ äğù÷ äğåëçé
+	[Header("Weapon Settings")]
+	[SerializeField] private List<GameObject> weaponPrefabs; // ×¨×©×™××ª × ×©×§×™× ×–××™× ×™×
+	private int currentWeaponIndex = 0; // ××™× ×“×§×¡ ×”× ×©×§ ×”× ×•×›×—×™
 
-    public GameObject GetCurrentWeapon()
-    {
-        return weaponPrefabs[currentWeaponIndex];
-    }
+	public GameObject GetCurrentWeapon()
+	{
+		return weaponPrefabs[currentWeaponIndex];
+	}
 
-    public void AddWeapon(GameObject newWeaponPrefab)
-    {
-        if (!weaponPrefabs.Contains(newWeaponPrefab))
-        {
-            weaponPrefabs.Add(newWeaponPrefab);
-            Debug.Log($"Weapon {newWeaponPrefab.name} added!");
-        }
-    }
+	public void AddWeapon(GameObject newWeaponPrefab)
+	{
+		if (!weaponPrefabs.Contains(newWeaponPrefab))
+		{
+			weaponPrefabs.Add(newWeaponPrefab);
+			Debug.Log($"Weapon {newWeaponPrefab.name} added!");
+		}
+	}
 
-    public void SwitchWeapon(int direction)
-    {
-        currentWeaponIndex += direction;
+	public void SwitchWeapon(int direction)
+	{
+		currentWeaponIndex += direction;
 
-        if (currentWeaponIndex >= weaponPrefabs.Count)
-        {
-            currentWeaponIndex = 0; // çæøä ìäúçìä
-        }
-        else if (currentWeaponIndex < 0)
-        {
-            currentWeaponIndex = weaponPrefabs.Count - 1; // çæøä ìñåó
-        }
+		if (currentWeaponIndex >= weaponPrefabs.Count)
+		{
+			currentWeaponIndex = 0; // ×—×–×¨×” ×œ×”×ª×—×œ×”
+		}
+		else if (currentWeaponIndex < 0)
+		{
+			currentWeaponIndex = weaponPrefabs.Count - 1; // ×—×–×¨×” ×œ×¡×•×£
+		}
 
-        Debug.Log($"Current weapon: {weaponPrefabs[currentWeaponIndex].name}");
-    }
+		Debug.Log($"Current weapon: {weaponPrefabs[currentWeaponIndex].name}");
+	}
 }

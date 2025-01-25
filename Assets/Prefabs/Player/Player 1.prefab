@@ -137,7 +137,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63889e6583d71cc428a861f8f163b067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 5046729342296366727, guid: 63474765acf73dd469054465df8a9d8a, type: 3}
+  weaponManager: {fileID: 0}
   firePoint: {fileID: 663002685972718134}
   minShootForce: 5
   maxShootForce: 5
